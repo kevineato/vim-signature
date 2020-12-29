@@ -115,6 +115,7 @@ function! signature#marker#List(...)                                            
 
   let l:markers = (a:0 && (a:1 != "") ? a:1 : b:SignatureIncludeMarkers)
   let l:context = (a:0 > 1 ? a:2 : 0)
+  let l:skip_open = (a:0 > 2 ? a:3 : 0)
 
   if (l:markers =~ '^\d$')
     if (  (  (l:markers == 0)
@@ -170,5 +171,8 @@ function! signature#marker#List(...)                                            
   "  call remove(l:list, -1)
   "endif
 
-  call setloclist(0, l:list,) | lopen
+  if !l:skip_open
+    call setloclist(0, l:list,) | lopen
+  endif
+  return l:list
 endfunction
