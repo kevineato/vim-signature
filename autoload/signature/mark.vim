@@ -357,6 +357,7 @@ function! signature#mark#List(scope, ...)                                       
   let l:list = []
   let l:buf_curr = bufnr('%')
   let l:list_sep = {'bufnr': '', 'lnum' : ''}
+  let l:skip_open = (a:0 > 1 ? a:2 : 0)
 
   let l:SignatureIncludeMarks = (a:scope == 0 ? b:SignatureIncludeMarks : g:SignatureIncludeMarks)
   for i in split(l:SignatureIncludeMarks, '\zs')
@@ -423,5 +424,8 @@ function! signature#mark#List(scope, ...)                                       
   "  call remove(l:list, -1)
   "endif
 
-  call setloclist(0, l:list) | lopen
+  if !l:skip_open
+    call setloclist(0, l:list) | lopen
+  endif
+  return l:list
 endfunction
