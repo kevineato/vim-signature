@@ -320,12 +320,10 @@ endfunction
 
 
 function! s:ForceGlobalRemoval(mark)                                                                              " {{{1
-  " Description: Edit viminfo/shada file to forcibly delete Global mark since vim's handling is iffy
+  " Description: Edit viminfo/shada file to forcibly delete mark since vim's handling is iffy
   " Arguments:   mark - The mark to delete
 
-  if (  (a:mark !~# '[A-Z]')
-   \ || !g:SignatureForceRemoveGlobal
-   \ )
+  if !g:SignatureForceRemoveGlobal
     return
   endif
 
